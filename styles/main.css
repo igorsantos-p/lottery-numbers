@@ -234,7 +234,7 @@ main {
       font-size: 2.5rem;
     }
 
-    .form-container {
+    .form-container, .result-container {
       grid-column: 1;
       grid-row: 2 / 3;
     }
