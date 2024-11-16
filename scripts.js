@@ -40,16 +40,11 @@ function drawnNumbers(min, max, quantity, isUnique) {
 }
 
 function appendNewResult(numbers) {
-    try {
-        for (let i = 0; i < numbers.length; i++) {
-            setTimeout(() => {
-                createElement(numbers[i])
-            }, 2000 * i)
-        }
-    } catch (error) {
-        alert(error)
+    for (let i = 0; i < numbers.length; i++) {
+        setTimeout(() => {
+            createElement(numbers[i])
+        }, 2000 * i)
     }
-
 }
 
 function createElement(number) {
@@ -96,14 +91,17 @@ form.onsubmit = (e) => {
         } else if (fromNumber >= toNumber) {
             from.value = ""
             to.value = ""
+            from.focus()
             throw new Error("O intervalo não é válido!")
         } else if (quantity.value == 0) {
             quantity.value = ""
+            quantity.focus()
             throw new Error("Quantidade de números a serem sorteados é inválida!")
         } else if (isUnique && quantityNumber > (toNumber - fromNumber + 1)) {
             from.value = ""
             to.value = ""
             quantity.value = ""
+            quantity.focus()
             throw new Error(`Não é possível sortear ${quantityNumber} números sem repetição neste intervalo!`)
         }
 
