@@ -1,0 +1,105 @@
+button {
+  width: 100%;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  gap: 0.5rem;
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--bg-tertiary);
+    border-radius: 8px;
+  }
+
+  span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1;
+    text-transform: uppercase;
+    color: var(--content-primary);
+  }
+
+  &:hover {
+    background: var(--gradient-border);
+    background-size: 400% 400%;
+    animation: gradient 2s infinite;
+
+    &::before {
+      inset: 0.1rem;
+      background: var(--bg-secondary);
+    }
+
+    span {
+      img {
+        animation: arrowRight 2s infinite;
+      }
+    }
+  }
+
+  &[data-type="again"] {
+    strong {
+      display: grid;
+      place-content: center;
+      width: 1.5rem;
+      height: 1.5rem;
+      position: relative;
+      background: url("../../assets/icons/play.svg") no-repeat center;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url("../../assets/icons/circle-play.svg") no-repeat center;
+        background-size: cover;
+      }
+    }
+
+    &:hover {
+      img {
+        animation: none;
+      }
+
+      strong::after {
+        animation: againCircle 1.5s infinite linear;
+      }
+    }
+  }
+}
+
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes arrowRight {
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes againCircle {
+  100% {
+    transform: rotate(360deg);
+  }
+}

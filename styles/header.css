@@ -1,0 +1,17 @@
+header {
+  padding: 4.75rem;
+
+  img {
+    display: block;
+    max-width: 100%;
+    cursor: pointer;
+  }
+}
+
+@media (width < 868px) {
+  header {
+    padding: 2.625rem;
+    display: flex;
+    justify-content: center;
+  }
+}
