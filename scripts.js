@@ -14,21 +14,20 @@ var fromNumber = 0;
 var toNumber = 0;
 var quantityNumber = 0;
 var drawnNumber = 0
+var isUnique = false;
 
-function drawnNumbers(min, max, quantity) {
+function drawnNumbers(min, max, quantity, isUnique) {
     const numbers = [];
 
     for (let i = 0; i < quantity; i++) {
-        const num = Math.floor(Math.random() * (max - min + 1) + min)
+        let num = Math.floor(Math.random() * (max - min + 1) + min)
 
         if (i == 0) {
             numbers.push(num);
-        } else if (unique.checked) {
+        } else if (isUnique) {
             while (numbers.includes(num)) {
-                const num = Math.floor(Math.random() * (max - min + 1) + min)
-                numbers.push(num);
+                num = Math.floor(Math.random() * (max - min + 1) + min)
             }
-
             numbers.push(num);
 
         } else {
@@ -40,13 +39,17 @@ function drawnNumbers(min, max, quantity) {
     drawnNumber++
 }
 
-
 function appendNewResult(numbers) {
-    for (let i = 0; i < numbers.length; i++) {
-        setTimeout(() => {
-            createElement(numbers[i])
-        }, 2000 * i)
+    try {
+        for (let i = 0; i < numbers.length; i++) {
+            setTimeout(() => {
+                createElement(numbers[i])
+            }, 2000 * i)
+        }
+    } catch (error) {
+        alert(error)
     }
+
 }
 
 function createElement(number) {
@@ -85,6 +88,7 @@ form.onsubmit = (e) => {
     fromNumber = Number(from.value)
     toNumber = Number(to.value)
     quantityNumber = Number(quantity.value)
+    isUnique = unique.checked
 
     try {
         if (quantityNumber === "" || fromNumber === "" || toNumber === "") {
@@ -96,7 +100,7 @@ form.onsubmit = (e) => {
         } else if (quantity.value == 0) {
             quantity.value = ""
             throw new Error("Quantidade de números a serem sorteados é inválida!")
-        } else if (unique.checked && quantityNumber > (toNumber - fromNumber + 1)) {
+        } else if (isUnique && quantityNumber > (toNumber - fromNumber + 1)) {
             from.value = ""
             to.value = ""
             quantity.value = ""
@@ -106,7 +110,7 @@ form.onsubmit = (e) => {
         formContainer.classList.remove("active");
         resultsView.classList.add("active");
 
-        drawnNumbers(fromNumber, toNumber, quantityNumber, unique.checked)
+        drawnNumbers(fromNumber, toNumber, quantityNumber, isUnique)
 
         form.reset();
 
@@ -117,13 +121,21 @@ form.onsubmit = (e) => {
 
 btnAgain.onclick = () => {
     clearResult()
-    drawnNumbers(fromNumber, toNumber, quantityNumber)
+    drawnNumbers(fromNumber, toNumber, quantityNumber, isUnique)
 }
 
 logoHome.onclick = () => {
     formContainer.classList.add("active");
     resultsView.classList.remove("active");
+
+    fromNumber = 0;
+    toNumber = 0;
+    quantityNumber = 0;
     drawnNumber = 0
+    isUnique = false;
+
+
+    form.reset()
     clearResult()
 }
 
