@@ -188,6 +188,7 @@ main {
     }
 
     .results {
+      min-height: 5.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -234,7 +235,8 @@ main {
       font-size: 2.5rem;
     }
 
-    .form-container, .result-container {
+    .form-container,
+    .result-container {
       grid-column: 1;
       grid-row: 2 / 3;
     }

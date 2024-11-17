@@ -15,6 +15,7 @@ var toNumber = 0;
 var quantityNumber = 0;
 var drawnNumber = 0
 var isUnique = false;
+const timeouts = [];
 
 function drawnNumbers(min, max, quantity, isUnique) {
     const numbers = [];
@@ -41,9 +42,11 @@ function drawnNumbers(min, max, quantity, isUnique) {
 
 function appendNewResult(numbers) {
     for (let i = 0; i < numbers.length; i++) {
-        setTimeout(() => {
+        const timeOutId = setTimeout(() => {
             createElement(numbers[i])
         }, 2000 * i)
+
+        timeouts.push(timeOutId)
     }
 }
 
@@ -60,22 +63,43 @@ function clearResult() {
     }
 }
 
+function clearAllTimeouts() {
+    for (const timeoutId of timeouts) {
+        clearTimeout(timeoutId);
+    } timeouts.length = 0;
+}
+
 quantity.oninput = () => {
     const value = quantity.value.replace(/\D/g, "")
 
-    quantity.value = value
+    if (value.length > 5) {
+        quantity.value = value.slice(0, 5)
+    } else {
+        quantity.value = value
+    }
+
 }
 
 from.oninput = () => {
     const value = from.value.replace(/\D/g, "")
 
-    from.value = value
+    if (value.length > 5) {
+        from.value = value.slice(0, 5)
+    } else {
+        from.value = value
+    }
+
 }
 
 to.oninput = () => {
     const value = to.value.replace(/\D/g, "")
 
-    to.value = value
+    if (value.length > 5) {
+        to.value = value.slice(0, 5)
+    } else {
+        to.value = value
+    }
+
 }
 
 form.onsubmit = (e) => {
@@ -119,6 +143,7 @@ form.onsubmit = (e) => {
 
 btnAgain.onclick = () => {
     clearResult()
+    clearAllTimeouts()
     drawnNumbers(fromNumber, toNumber, quantityNumber, isUnique)
 }
 
@@ -135,5 +160,6 @@ logoHome.onclick = () => {
 
     form.reset()
     clearResult()
+    clearAllTimeouts()
 }
 
